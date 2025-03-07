@@ -71,7 +71,7 @@ export const useVoiceBotService = () => {
         .then(() => {
           setWsConnected(true);
           log('connect success');
-          recStart();
+          // recStart();
         })
         .catch(e => {
           log('connect failed');

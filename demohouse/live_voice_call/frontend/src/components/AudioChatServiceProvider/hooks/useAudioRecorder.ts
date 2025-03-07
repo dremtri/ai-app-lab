@@ -61,7 +61,6 @@ export const useAudioRecorder = () => {
     bufferSampleRate: number,
     isClose: boolean,
   ) => {
-    debugger
     let pcm = new Int16Array(0);
     if (buffers.length > 0) {
       // 把 pcm列表（二维数组）展开成一维
