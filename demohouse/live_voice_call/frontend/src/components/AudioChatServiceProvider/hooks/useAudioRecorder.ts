@@ -47,11 +47,11 @@ export const useAudioRecorder = () => {
     // 将 pcmFrame.buffer 转换为 Uint8Array
     // const uint8Array = new Uint8Array(pcmFrame.buffer);
     const blob = new Blob([pcmFrame.buffer], { type: 'audio/pcm' }); //这是裸pcm，无前44字节wav头字节wav头
-    const data = encodeAudioOnlyRequest(blob);
-
+    // const data = encodeAudioOnlyRequest(blob);
+    
     serviceRef.current?.sendMessage({
       event: EventType.UserAudio,
-      data,
+      data: blob,
     });
     log('send | event:' + EventType.UserAudio + ' payload: ...');
   };
