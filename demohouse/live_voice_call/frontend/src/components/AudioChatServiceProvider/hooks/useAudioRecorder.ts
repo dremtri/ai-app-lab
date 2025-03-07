@@ -44,7 +44,9 @@ export const useAudioRecorder = () => {
     }
     sendLastFrameRef.current = pcmFrame;
 
-    const blob = new Blob([pcmFrame.buffer], { type: 'audio/pcm' }); //这是裸pcm，无前44字节wav头字节wav头
+    // 将 pcmFrame.buffer 转换为 Uint8Array
+    const uint8Array = new Uint8Array(pcmFrame.buffer);
+    const blob = new Blob([uint8Array], { type: 'audio/pcm' }); //这是裸pcm，无前44字节wav头字节wav头
     const data = encodeAudioOnlyRequest(blob);
 
     serviceRef.current?.sendMessage({
@@ -114,7 +116,7 @@ export const useAudioRecorder = () => {
     const recorder = Recorder({
       type: 'unknown',
       onProcess: (
-        buffers: (Int16Array | null)[],
+        buffers: (Int16Array | null)[], // 开始到现在的所有录音pcm数据块
         powerLevel: unknown,
         bufferDuration: unknown,
         bufferSampleRate: number,

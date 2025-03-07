@@ -54,5 +54,5 @@ export const CONST = {
 
 export const SAMPLE_RATE = 16000;
 export const BIT_RATE = 16;
-export const TIME_SLICE = 100; //ms
+export const TIME_SLICE = 200; //ms
 export const FRAME_SIZE = (SAMPLE_RATE * (BIT_RATE / 8) * TIME_SLICE) / 1000;
