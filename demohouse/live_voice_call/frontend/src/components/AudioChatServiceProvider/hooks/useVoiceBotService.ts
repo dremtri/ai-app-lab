@@ -109,7 +109,7 @@ export const useVoiceBotService = () => {
               setChatMessages(prev => {
                 const lastUserIndex = prev.length - 1
                 const lastUserMsg = prev[lastUserIndex];
-                if (lastUserMsg.role === 'bot') {
+                if (!lastUserMsg || lastUserMsg.role === 'bot') {
                   return [
                     ...prev,
                     { role: 'user', content },
@@ -182,28 +182,6 @@ export const useVoiceBotService = () => {
             setBotSpeaking(true);
             break;
           case EventType.LLMResponseDone:
-            setCurrentBotSentence(prevSentence => {
-              const content = payload?.sentence || '';
-              setChatMessages(prev => {
-                const lastBotIndex = prev.findLastIndex(
-                  msg => msg.role === 'bot',
-                );
-                const lastBotMsg = prev[lastBotIndex];
-
-                const updatedBotMsg = {
-                  ...lastBotMsg,
-                  content: content,
-                };
-                return prev.map((msg, idx) => {
-                  if (idx === lastBotIndex) {
-                    return updatedBotMsg;
-                  } else {
-                    return msg;
-                  }
-                });
-              });
-              return content;
-            });
             break;
           case EventType.ResponseDone:
             setBotSpeaking(false);

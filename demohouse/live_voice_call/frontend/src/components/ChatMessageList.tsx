@@ -20,9 +20,9 @@ export const ChatMessageList = () => {
       }
     >
       {!chatMessages.length && <div>对话后展示消息记录...</div>}
-      {chatMessages.map(msg =>
+      {chatMessages.map((msg, index) =>
         msg.role === 'bot' ? (
-          <div>
+          <div key={index}>
             <div className={'select-none flex'}>
               <img
                 className={'w-14 h-14 rounded-full mr-4'}
@@ -41,7 +41,7 @@ export const ChatMessageList = () => {
             </div>
           </div>
         ) : (
-          <div>
+          <div key={index}>
             <div className={'select-none flex justify-end scrollbar-hidden '}>
               <div
                 className={

@@ -18,7 +18,7 @@ export const AudioChatServiceProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
   // const [wsUrl, setWsUrl] = useState('ws://localhost:8888/api/live_voice_call/chat');
-  const [wsUrl, setWsUrl] = useState('ws://192.168.1.60:5050/test');
+  const [wsUrl, setWsUrl] = useState('ws://192.168.1.60:5050/hlspeech/controller');
   const waveRef = useRef<any>(null);
   const recorderRef = useRef<any>(null);
   const sendPcmBufferRef = useRef(new Int16Array(0));
