@@ -12,8 +12,8 @@ importers:
         specifier: ^2.64.0
         version: 2.65.0(@types/react@18.0.38)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@modern-js/plugin-tailwindcss':
-        specifier: 2.60.2
-        version: 2.60.2(@modern-js/runtime@2.60.0(@types/react-dom@18.0.11)(@types/react@18.0.38)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.17)
+        specifier: 2.60.0
+        version: 2.60.0(@modern-js/runtime@2.60.0(@types/react-dom@18.0.11)(@types/react@18.0.38)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.17)
       '@modern-js/runtime':
         specifier: 2.60.0
         version: 2.60.0(@types/react-dom@18.0.11)(@types/react@18.0.38)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -69,6 +69,9 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      tailwindcss:
+        specifier: ~3.4.14
+        version: 3.4.17
       typescript:
         specifier: ~5.0.4
         version: 5.0.4
@@ -1027,9 +1030,6 @@ packages:
   '@modern-js/node-bundle-require@2.60.0':
     resolution: {integrity: sha512-yqcBslrWS+kZLXZcCACqEBWUh7i0iDVeLU+9HrZ3jJZUG8cTK9Dd2zlHmIwG0IUG69YEbRZU7dHxZq6mgY5Irw==}
 
-  '@modern-js/node-bundle-require@2.60.2':
-    resolution: {integrity: sha512-vgl8q5sDQmTMbYq9kc9nGJu9QBO8DXmvn29z80+g+L1ft7vxcul2U51krhfrpsD6aaELmNJYmjp7v90iFBOpAQ==}
-
   '@modern-js/plugin-data-loader@2.60.0':
     resolution: {integrity: sha512-K4OH5gRFNMmp95MsmXcOHWbzGRn7gPmVaGxU1OmxgbBDykw2WbwBOVPuE5hS6gw1v4DVkWk1EieOvwt3aPTSzw==}
     engines: {node: '>=16.2.0'}
@@ -1047,10 +1047,10 @@ packages:
       eslint:
         optional: true
 
-  '@modern-js/plugin-tailwindcss@2.60.2':
-    resolution: {integrity: sha512-+fVf8GrQFKo8Q+LCfitQ68uCf07OA9ws4FaGGyqjG2FnHgRFqZ5FHdPY9eR0oa2IdxkBcw5wUlIjz0ODyCG7fg==}
+  '@modern-js/plugin-tailwindcss@2.60.0':
+    resolution: {integrity: sha512-j8kaEZ9aiy77ZCHcvrVJGguXNtqOP8bwCWBleDs/ohWsUc8HimUbas8XfSAQZKkutGbydbFUNrpJ+UYzke+H3A==}
     peerDependencies:
-      '@modern-js/runtime': ^2.60.2
+      '@modern-js/runtime': ^2.60.0
       tailwindcss: '>= 2.0.0 || >= 3.0.0'
     peerDependenciesMeta:
       '@modern-js/runtime':
@@ -1068,17 +1068,6 @@ packages:
 
   '@modern-js/runtime-utils@2.60.0':
     resolution: {integrity: sha512-imeWddea9cZq06RyuM9ruH2f+pw0uhTN1LzO4TJ00ktCfUngMKr9nZH+zQHmjAUhOabAc7WmI4awz6fAkGXCVg==}
-    peerDependencies:
-      react: '>=17.0.0'
-      react-dom: '>=17.0.0'
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-
-  '@modern-js/runtime-utils@2.60.2':
-    resolution: {integrity: sha512-KJK8mIdR71dtJ+aNTx/847DxWwakkGUyOm2sSD0Vwy/yGM9WvoZ1szlYuqhdF48JqOCxLFTKBe7deIkRbW1LXw==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -1127,9 +1116,6 @@ packages:
 
   '@modern-js/utils@2.60.0':
     resolution: {integrity: sha512-5B8ol7ljxgXcE7j1ZYhOmMzONivSBxwWA2/9HXOtl5cqda16O2yUYMwjZK4HbW12BuSc8+W4AT6D6qUyeKxVhA==}
-
-  '@modern-js/utils@2.60.2':
-    resolution: {integrity: sha512-7T95WiwSlfoX/3vQiTSRE1QGt5GIm0/DeXFbN4pyQzqzFLWrgnVmlloKHKQSejDlgp7ttRZZpBiRVmIiqZX98Q==}
 
   '@module-federation/runtime-tools@0.5.1':
     resolution: {integrity: sha512-nfBedkoZ3/SWyO0hnmaxuz0R0iGPSikHZOAZ0N/dVSQaIzlffUo35B5nlC2wgWIc0JdMZfkwkjZRrnuuDIJbzg==}
@@ -5795,12 +5781,6 @@ snapshots:
       '@swc/helpers': 0.5.13
       esbuild: 0.17.19
 
-  '@modern-js/node-bundle-require@2.60.2':
-    dependencies:
-      '@modern-js/utils': 2.60.2
-      '@swc/helpers': 0.5.13
-      esbuild: 0.17.19
-
   '@modern-js/plugin-data-loader@2.60.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -5826,11 +5806,11 @@ snapshots:
       cross-spawn: 7.0.6
       husky: 8.0.3
 
-  '@modern-js/plugin-tailwindcss@2.60.2(@modern-js/runtime@2.60.0(@types/react-dom@18.0.11)(@types/react@18.0.38)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.17)':
+  '@modern-js/plugin-tailwindcss@2.60.0(@modern-js/runtime@2.60.0(@types/react-dom@18.0.11)(@types/react@18.0.38)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.17)':
     dependencies:
-      '@modern-js/node-bundle-require': 2.60.2
-      '@modern-js/runtime-utils': 2.60.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@modern-js/utils': 2.60.2
+      '@modern-js/node-bundle-require': 2.60.0
+      '@modern-js/runtime-utils': 2.60.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@modern-js/utils': 2.60.0
       '@swc/helpers': 0.5.13
       babel-plugin-macros: 3.1.0
       tailwindcss: 3.4.17
@@ -5875,15 +5855,6 @@ snapshots:
       react-router-dom: 6.22.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       serialize-javascript: 6.0.2
     optionalDependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-
-  '@modern-js/runtime-utils@2.60.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@modern-js/utils': 2.60.2
-      '@remix-run/router': 1.15.0
-      '@swc/helpers': 0.5.13
-      lru-cache: 6.0.0
       react-router-dom: 6.22.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       serialize-javascript: 6.0.2
     optionalDependencies:
@@ -6070,13 +6041,6 @@ snapshots:
       - webpack-plugin-serve
 
   '@modern-js/utils@2.60.0':
-    dependencies:
-      '@swc/helpers': 0.5.13
-      caniuse-lite: 1.0.30001692
-      lodash: 4.17.21
-      rslog: 1.2.3
-
-  '@modern-js/utils@2.60.2':
     dependencies:
       '@swc/helpers': 0.5.13
       caniuse-lite: 1.0.30001692
