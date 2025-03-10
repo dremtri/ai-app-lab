@@ -32,6 +32,10 @@ export type WebRequest = {
 export enum EventType {
   BotReady = 'BotReady',
   SentenceRecognized = 'SentenceRecognized',
+  SentenceRecognizedDone = 'SentenceRecognizedDone',
+  LLMResponse = 'LLMResponse',
+  LLMResponseDone = 'LLMResponseDone',
+  ResponseDone = 'ResponseDone',
   TTSSentenceStart = 'TTSSentenceStart',
   TTSDone = 'TTSDone',
   BotError = 'BotError',

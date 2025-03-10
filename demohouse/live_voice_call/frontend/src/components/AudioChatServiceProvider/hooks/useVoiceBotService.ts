@@ -104,16 +104,59 @@ export const useVoiceBotService = () => {
             wsReadyRef.current = true;
             break;
           case EventType.SentenceRecognized:
+            setCurrentUserSentence(prevSentence => {
+              const content = prevSentence + payload?.sentence || '';
+              setChatMessages(prev => {
+                const lastUserIndex = prev.length - 1
+                const lastUserMsg = prev[lastUserIndex];
+                if (lastUserMsg.role === 'bot') {
+                  return [
+                    ...prev,
+                    { role: 'user', content },
+                  ]
+                }
+                const updatedUserMsg = {
+                  ...lastUserMsg,
+                  content: content,
+                };
+                return prev.map((msg, idx) => {
+                  if (idx === lastUserIndex) {
+                    return updatedUserMsg;
+                  } else {
+                    return msg;
+                  }
+                });
+              });
+              return content;
+            });
+            break;
+          case EventType.SentenceRecognizedDone:
             recStop();
             const content = payload?.sentence || '';
             setCurrentUserSentence(content);
-            setChatMessages(prev => [
-              ...prev,
-              { role: 'user', content },
-              { role: 'bot', content: '' },
-            ]);
+            setChatMessages(prev => {
+              const lastUserIndex = prev.findLastIndex(
+                msg => msg.role === 'user',
+              );
+              const lastUserMsg = prev[lastUserIndex];
+              const updatedUserMsg = {
+                ...lastUserMsg,
+                content: content,
+              };
+              const msgList = prev.map((msg, idx) => {
+                if (idx === lastUserIndex) {
+                  return updatedUserMsg;
+                } else {
+                  return msg;
+                }
+              });
+              return [
+                ...msgList,
+                { role: 'bot', content: '' },
+              ]
+            });
             break;
-          case EventType.TTSSentenceStart:
+          case EventType.LLMResponse:
             setCurrentBotSentence(prevSentence => {
               const content = prevSentence + payload?.sentence || '';
               setChatMessages(prev => {
@@ -138,7 +181,31 @@ export const useVoiceBotService = () => {
             });
             setBotSpeaking(true);
             break;
-          case EventType.TTSDone:
+          case EventType.LLMResponseDone:
+            setCurrentBotSentence(prevSentence => {
+              const content = payload?.sentence || '';
+              setChatMessages(prev => {
+                const lastBotIndex = prev.findLastIndex(
+                  msg => msg.role === 'bot',
+                );
+                const lastBotMsg = prev[lastBotIndex];
+
+                const updatedBotMsg = {
+                  ...lastBotMsg,
+                  content: content,
+                };
+                return prev.map((msg, idx) => {
+                  if (idx === lastBotIndex) {
+                    return updatedBotMsg;
+                  } else {
+                    return msg;
+                  }
+                });
+              });
+              return content;
+            });
+            break;
+          case EventType.ResponseDone:
             setBotSpeaking(false);
             if (configNeedUpdateRef.current) {
               handleBotUpdateConfig();
