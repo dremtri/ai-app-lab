@@ -185,10 +185,11 @@ export const useVoiceBotService = () => {
             break;
           case EventType.ResponseDone:
             setBotSpeaking(false);
-            if (configNeedUpdateRef.current) {
-              handleBotUpdateConfig();
-              configNeedUpdateRef.current = false;
-            }
+            // recStart()
+            // if (configNeedUpdateRef.current) {
+            //   handleBotUpdateConfig();
+            //   configNeedUpdateRef.current = false;
+            // }
         }
       },
     });

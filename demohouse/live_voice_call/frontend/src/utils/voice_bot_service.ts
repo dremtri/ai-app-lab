@@ -90,9 +90,10 @@ export default class VoiceBotService {
       this.playing = false;
       return;
     }
-    const audioBuffer = await this.audioCtx.decodeAudioData(
-      new Uint8Array(data).buffer,
-    );
+    // const audioBuffer = await this.audioCtx.decodeAudioData(
+    //   new Uint8Array(data).buffer,
+    // );
+    const audioBuffer = await this.audioCtx.decodeAudioData(data);
     const source = this.audioCtx.createBufferSource();
     source.buffer = audioBuffer;
     source.connect(this.audioCtx.destination);
