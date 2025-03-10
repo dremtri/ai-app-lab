@@ -182,9 +182,9 @@ export const useVoiceBotService = () => {
             setBotSpeaking(true);
             break;
           case EventType.LLMResponseDone:
+            setBotSpeaking(false);
             break;
           case EventType.ResponseDone:
-            setBotSpeaking(false);
             // recStart()
             // if (configNeedUpdateRef.current) {
             //   handleBotUpdateConfig();
