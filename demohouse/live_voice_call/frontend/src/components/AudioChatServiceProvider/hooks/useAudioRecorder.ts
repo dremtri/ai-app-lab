@@ -29,13 +29,16 @@ export const useAudioRecorder = () => {
     sendPcmBufferRef,
   } = useContext(AudioChatServiceContext);
   const { log } = useLogContent();
-  const { setUserSpeaking } = useAudioChatState();
+  const { setUserSpeaking, isCallingRef } = useAudioChatState();
   const handleReset = () => {
     sendPcmBufferRef.current = new Int16Array(0);
     sendChunkRef.current = null;
     sendLastFrameRef.current = null;
   };
   const handleSend = (pcmFrame: Int16Array, isClose: boolean) => {
+    if (!isCallingRef.current) {
+      return
+    }
     if (isClose && pcmFrame.length === 0) {
       const len = sendLastFrameRef.current
         ? sendLastFrameRef.current.length

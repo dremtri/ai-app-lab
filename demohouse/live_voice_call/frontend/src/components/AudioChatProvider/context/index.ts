@@ -9,7 +9,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License. 
 
-import { createContext, type Dispatch, type SetStateAction } from 'react';
+import { createContext, MutableRefObject, type Dispatch, type SetStateAction } from 'react';
 import type { IMessage } from '@/types';
 
 type AudioChatContextType = {
@@ -24,6 +24,7 @@ type AudioChatContextType = {
   //
   chatMessages: IMessage[];
   setChatMessages: Dispatch<SetStateAction<IMessage[]>>;
+  isCallingRef: MutableRefObject<boolean>;
 };
 
 export const AudioChatContext = createContext<AudioChatContextType>(

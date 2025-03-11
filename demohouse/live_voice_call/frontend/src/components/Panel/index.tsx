@@ -34,6 +34,7 @@ export const Panel = () => {
     userSpeaking,
 
     botAudioPlaying,
+    isCallingRef
   } = useAudioChatState();
 
   const { handleConnect } = useVoiceBotService();
@@ -46,7 +47,16 @@ export const Panel = () => {
 
   const { wsUrl, setWsUrl } = useWsUrl();
   const [draftWsUrl, setDraftWsUrl] = useState(wsUrl);
+  const isCalling = userSpeaking || botSpeaking || botAudioPlaying;
 
+  const hangUpCall = () => {
+    isCallingRef.current = true
+    recStart()
+  }
+  const hangDownCall = () => {
+    isCallingRef.current = false
+    recStop()
+  }
   return (
     <div className={'flex flex-col gap-4'}>
       <div className={'w-[650px] flex flex-col gap-4'}>
@@ -64,10 +74,10 @@ export const Panel = () => {
           >
             连接
           </Button>
-          <Button disabled={!wsConnected} onClick={recStart}>
+          <Button disabled={!wsConnected || isCalling} onClick={hangUpCall}>
             打电话
           </Button>
-          <Button disabled={!wsConnected} onClick={recStop}>
+          <Button disabled={!wsConnected || !isCalling} onClick={hangDownCall}>
             挂断
           </Button>
         </div>

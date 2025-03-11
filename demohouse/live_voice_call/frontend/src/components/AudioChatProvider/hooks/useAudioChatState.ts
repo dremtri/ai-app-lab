@@ -22,6 +22,7 @@ export const useAudioChatState = () => {
     setWsConnected,
     botAudioPlaying,
     setBotAudioPlaying,
+    isCallingRef
   } = useContext(AudioChatContext);
   return {
     botSpeaking,
@@ -32,5 +33,6 @@ export const useAudioChatState = () => {
     setWsConnected,
     botAudioPlaying,
     setBotAudioPlaying,
+    isCallingRef
   };
 };

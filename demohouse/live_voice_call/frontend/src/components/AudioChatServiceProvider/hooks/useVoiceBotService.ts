@@ -35,7 +35,7 @@ export const useVoiceBotService = () => {
   const currentSpeakerRef = useSyncRef(currentSpeaker);
 
   const { setChatMessages } = useMessageList();
-  const { setWsConnected, setBotSpeaking, setBotAudioPlaying } =
+  const { setWsConnected, setBotSpeaking, setBotAudioPlaying, isCallingRef } =
     useAudioChatState();
 
   const { wsUrl } = useWsUrl();
@@ -71,7 +71,6 @@ export const useVoiceBotService = () => {
         .then(() => {
           setWsConnected(true);
           log('connect success');
-          // recStart();
         })
         .catch(e => {
           log('connect failed');
@@ -94,7 +93,9 @@ export const useVoiceBotService = () => {
         if (!wsReadyRef.current) {
           return;
         }
-        recStart();
+        if (isCallingRef.current) {
+          recStart();
+        }
       },
       handleJSONMessage: msg => {
         const { event, payload } = msg;
@@ -158,7 +159,6 @@ export const useVoiceBotService = () => {
             setBotSpeaking(false);
             break;
           case EventType.ResponseDone:
-            // recStart()
             // if (configNeedUpdateRef.current) {
             //   handleBotUpdateConfig();
             //   configNeedUpdateRef.current = false;

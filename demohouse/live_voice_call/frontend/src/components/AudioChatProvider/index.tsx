@@ -9,7 +9,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License. 
 
-import { type FC, type PropsWithChildren, useState } from 'react';
+import { type FC, type PropsWithChildren, useRef, useState } from 'react';
 import { useImmer } from "use-immer";
 import { AudioChatContext } from '@/components/AudioChatProvider/context';
 import type { IMessage } from '@/types';
@@ -20,6 +20,7 @@ export const AudioChatProvider: FC<PropsWithChildren> = ({ children }) => {
   const [botAudioPlaying, setBotAudioPlaying] = useState(false);
   const [userSpeaking, setUserSpeaking] = useState(false);
   const [chatMessages, setChatMessages] = useImmer<IMessage[]>([]);
+  const isCallingRef = useRef<boolean>(false)
   return (
     <AudioChatContext.Provider
       value={{
@@ -33,6 +34,7 @@ export const AudioChatProvider: FC<PropsWithChildren> = ({ children }) => {
         setUserSpeaking,
         chatMessages,
         setChatMessages,
+        isCallingRef
       }}
     >
       {children}
