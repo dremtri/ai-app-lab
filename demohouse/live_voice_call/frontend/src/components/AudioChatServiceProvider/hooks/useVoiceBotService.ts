@@ -106,78 +106,51 @@ export const useVoiceBotService = () => {
           case EventType.SentenceRecognized:
             setCurrentUserSentence(prevSentence => {
               const content = prevSentence + payload?.sentence || '';
-              setChatMessages(prev => {
-                const lastUserIndex = prev.length - 1
-                const lastUserMsg = prev[lastUserIndex];
-                if (!lastUserMsg || lastUserMsg.role === 'bot') {
-                  return [
-                    ...prev,
-                    { role: 'user', content },
-                  ]
-                }
-                const updatedUserMsg = {
-                  ...lastUserMsg,
-                  content: content,
-                };
-                return prev.map((msg, idx) => {
-                  if (idx === lastUserIndex) {
-                    return updatedUserMsg;
-                  } else {
-                    return msg;
-                  }
-                });
-              });
-              return content;
+              return content
+            })
+            setChatMessages(prev => {
+              const len = prev.length
+              const lastIndex = len - 1
+              if (lastIndex === -1 || prev[lastIndex].role === 'bot') {
+                prev.push({ role: 'user', content: payload?.sentence || '' })
+              } else {
+                prev[lastIndex].content += payload?.sentence || ''
+              }
+              return prev
             });
             break;
           case EventType.SentenceRecognizedDone:
             recStop();
-            const content = payload?.sentence || '';
-            setCurrentUserSentence(content);
+            setCurrentUserSentence(() => {
+              const content = payload?.sentence || '';
+              return content
+            });
             setChatMessages(prev => {
-              const lastUserIndex = prev.findLastIndex(
-                msg => msg.role === 'user',
-              );
-              const lastUserMsg = prev[lastUserIndex];
-              const updatedUserMsg = {
-                ...lastUserMsg,
-                content: content,
-              };
-              const msgList = prev.map((msg, idx) => {
-                if (idx === lastUserIndex) {
-                  return updatedUserMsg;
-                } else {
-                  return msg;
-                }
-              });
-              return [
-                ...msgList,
-                { role: 'bot', content: '' },
-              ]
+              const content = payload?.sentence || ''
+              const len = prev.length
+              const lastIndex = len - 1
+              if (lastIndex === -1 || prev[lastIndex].role === 'bot') {
+                prev.push({ role: 'user', content })
+              } else {
+                prev[lastIndex].content = content
+              }
+              return prev
             });
             break;
           case EventType.LLMResponse:
             setCurrentBotSentence(prevSentence => {
               const content = prevSentence + payload?.sentence || '';
-              setChatMessages(prev => {
-                const lastBotIndex = prev.findLastIndex(
-                  msg => msg.role === 'bot',
-                );
-                const lastBotMsg = prev[lastBotIndex];
-
-                const updatedBotMsg = {
-                  ...lastBotMsg,
-                  content: content,
-                };
-                return prev.map((msg, idx) => {
-                  if (idx === lastBotIndex) {
-                    return updatedBotMsg;
-                  } else {
-                    return msg;
-                  }
-                });
-              });
-              return content;
+              return content
+            })
+            setChatMessages(prev => {
+              const len = prev.length
+              const lastIndex = len - 1
+              if (lastIndex === -1 || prev[lastIndex].role === 'user') {
+                prev.push({ role: 'bot', content: payload?.sentence || '' })
+              } else {
+                prev[lastIndex].content += payload?.sentence || ''
+              }
+              return prev
             });
             setBotSpeaking(true);
             break;
