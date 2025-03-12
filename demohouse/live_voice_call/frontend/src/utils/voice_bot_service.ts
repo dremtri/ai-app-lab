@@ -24,6 +24,8 @@ export default class VoiceBotService {
   private ws?: WebSocket;
   // private sonic:any;
   private audioCtx: AudioContext;
+  private analyser: AnalyserNode;
+  private animationFrameId: number | null = null;
   private source: AudioBufferSourceNode | undefined;
   private audioChunks: ArrayBuffer[] = [];
   private handleJSONMessage: (json: JSONResponse) => void;
@@ -33,6 +35,9 @@ export default class VoiceBotService {
   constructor(props: IVoiceBotService) {
     this.ws_url = props.ws_url;
     this.audioCtx = new AudioContext();
+    this.analyser = this.audioCtx.createAnalyser();
+    this.analyser.fftSize = 2048; // 可调节的 FFT 大小（256/512/1024/2048）
+    this.analyser.smoothingTimeConstant = 0.8; // 平滑系数（0-1）
     this.handleJSONMessage = props.handleJSONMessage;
     this.onStartPlayAudio = props.onStartPlayAudio;
     this.onStopPlayAudio = props.onStopPlayAudio;
@@ -96,7 +101,8 @@ export default class VoiceBotService {
     const audioBuffer = await this.audioCtx.decodeAudioData(data);
     const source = this.audioCtx.createBufferSource();
     source.buffer = audioBuffer;
-    source.connect(this.audioCtx.destination);
+    source.connect(this.analyser);
+    this.analyser.connect(this.audioCtx.destination);
     source.addEventListener('ended', () => this.playNextAudioChunk());
     this.source = source;
     source.start(0);
@@ -108,10 +114,30 @@ export default class VoiceBotService {
   private dispose() {
     this.ws?.close();
     this.reset();
+    this.stopVisualization();
   }
   private reset() {
     this.audioChunks = [];
     this.source?.stop();
     this.source = undefined;
+  }
+  private getWaveform(): Uint8Array {
+    const data = new Uint8Array(this.analyser.frequencyBinCount);
+    this.analyser.getByteTimeDomainData(data);
+    return data;
+  }
+  startVisualization(callback: (data: Uint8Array) => void) {
+    const animate = () => {
+      this.animationFrameId = requestAnimationFrame(animate);
+      callback(this.getWaveform());
+    };
+    animate();
+  }
+  stopVisualization() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+    this.analyser?.disconnect();
   }
 }

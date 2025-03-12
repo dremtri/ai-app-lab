@@ -28,6 +28,7 @@ export const useVoiceBotService = () => {
     setCurrentUserSentence,
     setCurrentBotSentence,
     serviceRef,
+    waveRef,
     configNeedUpdateRef,
   } = useContext(AudioChatServiceContext);
   const { recStart, recStop } = useAudioRecorder();
@@ -85,8 +86,18 @@ export const useVoiceBotService = () => {
       ws_url: wsUrl,
       onStartPlayAudio: data => {
         setBotAudioPlaying(true);
+        serviceRef.current?.startVisualization((data) => {
+          const pcmData = new Int16Array(data.length);
+          // 将 8 位无符号数据转换为 16 位有符号
+          for (let i = 0; i < data.length; i++) {
+            const normalized = (data[i] - 128) / 128;  // 转换为 -1 到 1 的浮点数
+            pcmData[i] = Math.max(-32768, Math.min(32767, normalized * 32768)); // 16 位有符号
+          }
+          waveRef.current && waveRef.current.input(pcmData, 0, 16000);
+        })
       },
       onStopPlayAudio: () => {
+        serviceRef.current?.stopVisualization();
         setBotAudioPlaying(false);
         setCurrentUserSentence('');
         setCurrentBotSentence('');
