@@ -10,11 +10,20 @@
 // limitations under the License. 
 
 import { useMessageList } from '@/components/AudioChatProvider/hooks/useMessageList';
+import { useRef, useEffect } from 'react';
 
 export const ChatMessageList = () => {
   const { chatMessages } = useMessageList();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    scrollRef.current?.scrollTo({
+      top: scrollRef.current?.scrollHeight,
+      behavior: 'smooth',
+    });
+  }, [chatMessages]);
   return (
     <div
+      ref={scrollRef}
       className={
         'w-[500px] h-[700px] flex-shrink-0 pt-12 px-4 pb-4 rounded-[20px] bg-[#f2f3f5]  px-5 py-5 flex flex-col overflow-y-scroll gap-4'
       }
