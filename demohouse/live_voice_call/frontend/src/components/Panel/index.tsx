@@ -47,7 +47,7 @@ export const Panel = () => {
 
   const { wsUrl, setWsUrl } = useWsUrl();
   const [draftWsUrl, setDraftWsUrl] = useState(wsUrl);
-  const isCalling = userSpeaking || botSpeaking || botAudioPlaying;
+  const isCalling = userSpeaking || botSpeaking || botAudioPlaying || isCallingRef.current;
 
   const hangUpCall = () => {
     isCallingRef.current = true

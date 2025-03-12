@@ -23,7 +23,7 @@ const Index = () => {
       <AudioChatServiceProvider>
         <div
           className={
-            'h-screen w-screen flex gap-12 items-center justify-center'
+            'h-screen w-screen flex gap-4 px-4 items-center justify-center'
           }
         >
           <Tel />
@@ -31,7 +31,6 @@ const Index = () => {
           <Panel />
         </div>
       </AudioChatServiceProvider>
-      s
     </AudioChatProvider>
   );
 };
