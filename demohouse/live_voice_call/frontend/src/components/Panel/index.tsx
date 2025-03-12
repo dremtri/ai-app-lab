@@ -59,7 +59,7 @@ export const Panel = () => {
   }
   return (
     <div className={'flex flex-col gap-4'}>
-      <div className={'w-[650px] flex flex-col gap-4'}>
+      <div className={'w-[600px] flex flex-col gap-4'}>
         <div className={'flex gap-2'}>
           <Input
             prefix={<div className={'bg-white'}>ws_url</div>}

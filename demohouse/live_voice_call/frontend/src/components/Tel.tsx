@@ -20,7 +20,7 @@ export const Tel = () => {
     <div className={'chat'}>
       <div
         className={
-          'relative h-[700px] w-[500px] max-w-[720px] overflow-hidden rounded-[20px] bg-[#f2f3f5]'
+          'relative h-[700px] w-[400px] max-w-[720px] overflow-hidden rounded-[20px] bg-[#f2f3f5]'
         }
       >
         <div className={'flex flex-col items-center justify-center gap-12'}>

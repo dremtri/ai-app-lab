@@ -25,7 +25,7 @@ export const ChatMessageList = () => {
     <div
       ref={scrollRef}
       className={
-        'w-[500px] h-[700px] flex-shrink-0 pt-12 px-4 pb-4 rounded-[20px] bg-[#f2f3f5]  px-5 py-5 flex flex-col overflow-y-scroll gap-4'
+        'w-[400px] h-[700px] flex-shrink-0 pt-12 px-4 pb-4 rounded-[20px] bg-[#f2f3f5]  px-5 py-5 flex flex-col overflow-y-scroll gap-4'
       }
     >
       {!chatMessages.length && <div>对话后展示消息记录...</div>}
