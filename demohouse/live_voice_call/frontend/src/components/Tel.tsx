@@ -27,7 +27,7 @@ export const Tel = () => {
           <div
             className={'h-12 text-xl font-bold text-[#507ef7] text-center py-3'}
           >
-            语音 demo
+            鸿联智能体
           </div>
           <div className={'flex flex-col justify-center items-center'}>
             <img
