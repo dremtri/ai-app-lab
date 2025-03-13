@@ -12,6 +12,7 @@
 import { Spin } from '@arco-design/web-react';
 import React from 'react';
 import { useAudioChatState } from '@/components/AudioChatProvider/hooks/useAudioChatState';
+import BotImg from '@/assets/images/bot.png'
 
 export const Tel = () => {
   const { wsConnected, botSpeaking, userSpeaking, botAudioPlaying } =
@@ -31,9 +32,7 @@ export const Tel = () => {
           </div>
           <div className={'flex flex-col justify-center items-center'}>
             <img
-              src={
-                'https://lf3-static.bytednsdoc.com/obj/eden-cn/LM-STH-hahK/ljhwZthlaukjlkulzlp/ark/bot/audio_bot_demo/WrAtF2jBdl.png'
-              }
+              src={BotImg}
               className={
                 'mt-16 w-[100px] h-[100px] rounded-full select-none  object-cover box-content'
               }

@@ -11,6 +11,7 @@
 
 import { useMessageList } from '@/components/AudioChatProvider/hooks/useMessageList';
 import { useRef, useEffect } from 'react';
+import BotImg from '@/assets/images/bot.png'
 
 export const ChatMessageList = () => {
   const { chatMessages } = useMessageList();
@@ -35,9 +36,7 @@ export const ChatMessageList = () => {
             <div className={'select-none flex'}>
               <img
                 className={'w-14 h-14 rounded-full mr-4'}
-                src={
-                  'https://lf3-static.bytednsdoc.com/obj/eden-cn/LM-STH-hahK/ljhwZthlaukjlkulzlp/ark/bot/audio_bot_demo/WrAtF2jBdl.png'
-                }
+                src={BotImg}
                 alt={''}
               />
               <div
