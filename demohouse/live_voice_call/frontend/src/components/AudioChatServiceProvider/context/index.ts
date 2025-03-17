@@ -15,7 +15,7 @@ import {
   type MutableRefObject,
   type SetStateAction,
 } from 'react';
-import type VoiceBotService from '@/utils/voice_bot_service';
+import type VoiceBotService from 'lvc-sdk';
 
 type AudioChatServiceContextType = {
   wsUrl: string;

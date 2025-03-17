@@ -15,7 +15,7 @@ import { Message } from '@arco-design/web-react';
 import { useAudioChatState } from '@/components/AudioChatProvider/hooks/useAudioChatState';
 import { useLogContent } from '@/components/AudioChatServiceProvider/hooks/useLogContent';
 import { useAudioRecorder } from '@/components/AudioChatServiceProvider/hooks/useAudioRecorder';
-import VoiceBotService from '@/utils/voice_bot_service';
+import VoiceBotService from 'lvc-sdk';
 import { EventType } from '@/types';
 import { useSpeakerConfig } from '@/components/AudioChatServiceProvider/hooks/useSpeakerConfig';
 import { useMessageList } from '@/components/AudioChatProvider/hooks/useMessageList';

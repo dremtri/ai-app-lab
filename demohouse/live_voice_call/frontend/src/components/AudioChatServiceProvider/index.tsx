@@ -11,7 +11,7 @@
 
 import { type FC, type PropsWithChildren, useRef, useState } from 'react';
 import { AudioChatServiceContext } from '@/components/AudioChatServiceProvider/context';
-import type VoiceBotService from '@/utils/voice_bot_service';
+import type VoiceBotService from 'lvc-sdk';
 import { useSyncRef } from '@/hooks/useSyncRef';
 
 export const AudioChatServiceProvider: FC<PropsWithChildren> = ({

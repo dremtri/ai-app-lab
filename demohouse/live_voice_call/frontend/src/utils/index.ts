@@ -10,7 +10,7 @@
 // limitations under the License. 
 
 import type { IWebSocketResponse, WebRequest } from '@/types';
-import { CONST } from '@/constant';
+import { CONST } from 'lvc-sdk/constant';
 
 /**
  * 打包成二进制数据(Blob)

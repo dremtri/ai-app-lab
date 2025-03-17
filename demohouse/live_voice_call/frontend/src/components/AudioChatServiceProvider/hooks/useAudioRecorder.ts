@@ -13,7 +13,7 @@ import { useContext } from 'react';
 import { AudioChatServiceContext } from '@/components/AudioChatServiceProvider/context';
 import Recorder from 'recorder-core';
 import 'recorder-core/src/extensions/waveview';
-import { BIT_RATE, FRAME_SIZE, SAMPLE_RATE } from '@/constant';
+import { BIT_RATE, FRAME_SIZE, SAMPLE_RATE } from 'lvc-sdk/constant';
 import { encodeAudioOnlyRequest } from '@/utils';
 import { EventType } from '@/types';
 import { useLogContent } from '@/components/AudioChatServiceProvider/hooks/useLogContent';

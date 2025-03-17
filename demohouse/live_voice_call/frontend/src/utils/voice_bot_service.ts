@@ -9,9 +9,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License. 
 
-import { decodeWebSocketResponse, pack } from '.';
+import { decodeWebSocketResponse, pack } from 'lvc-sdk/util';
 import type { JSONResponse, WebRequest } from '@/types';
-import { CONST } from '@/constant';
+import { CONST } from 'lvc-sdk/constant';
 
 interface IVoiceBotService {
   ws_url: string;
