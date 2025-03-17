@@ -14,7 +14,6 @@ import { AudioChatServiceContext } from '@/components/AudioChatServiceProvider/c
 import { Message } from '@arco-design/web-react';
 import { useAudioChatState } from '@/components/AudioChatProvider/hooks/useAudioChatState';
 import { useLogContent } from '@/components/AudioChatServiceProvider/hooks/useLogContent';
-import { useAudioRecorder } from '@/components/AudioChatServiceProvider/hooks/useAudioRecorder';
 import VoiceBotService from 'lvc-sdk';
 import { EventType } from '@/types';
 import { useSpeakerConfig } from '@/components/AudioChatServiceProvider/hooks/useSpeakerConfig';
@@ -31,12 +30,11 @@ export const useVoiceBotService = () => {
     waveRef,
     configNeedUpdateRef,
   } = useContext(AudioChatServiceContext);
-  const { recStart, recStop } = useAudioRecorder();
   const { currentSpeaker } = useSpeakerConfig();
   const currentSpeakerRef = useSyncRef(currentSpeaker);
 
   const { setChatMessages } = useMessageList();
-  const { setWsConnected, setBotSpeaking, setBotAudioPlaying, isCallingRef } =
+  const { setWsConnected, setBotSpeaking, setUserSpeaking, setBotAudioPlaying, isCallingRef } =
     useAudioChatState();
 
   const { wsUrl } = useWsUrl();
@@ -84,6 +82,13 @@ export const useVoiceBotService = () => {
   useEffect(() => {
     serviceRef.current = new VoiceBotService({
       ws_url: wsUrl,
+      onUserSpeaking: (flag) => {
+        setUserSpeaking(flag)
+      },
+      onStartPlayUserAudio: (buffer, powerLevel, bufferSampleRate) => {
+        waveRef.current &&
+          waveRef.current.input(buffer, powerLevel, bufferSampleRate);
+      },
       onStartPlayAudio: data => {
         setBotAudioPlaying(true);
         serviceRef.current?.startVisualization((data) => {
@@ -105,7 +110,7 @@ export const useVoiceBotService = () => {
           return;
         }
         if (isCallingRef.current) {
-          recStart();
+          serviceRef.current?.recStart()
         }
       },
       handleJSONMessage: msg => {
@@ -132,7 +137,7 @@ export const useVoiceBotService = () => {
             });
             break;
           case EventType.SentenceRecognizedDone:
-            recStop();
+            serviceRef.current?.recStop()
             setCurrentUserSentence(() => {
               const content = payload?.sentence || '';
               return content

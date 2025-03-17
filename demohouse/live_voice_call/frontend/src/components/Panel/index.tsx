@@ -19,11 +19,12 @@ import {
 import { useAudioChatState } from '@/components/AudioChatProvider/hooks/useAudioChatState';
 
 import { useLogContent } from '@/components/AudioChatServiceProvider/hooks/useLogContent';
-import { useAudioRecorder } from '@/components/AudioChatServiceProvider/hooks/useAudioRecorder';
 import { useVoiceBotService } from '@/components/AudioChatServiceProvider/hooks/useVoiceBotService';
 import { useCurrentSentence } from '@/components/AudioChatServiceProvider/hooks/useCurrentSentence';
 import { useWsUrl } from '@/components/AudioChatServiceProvider/hooks/useWsUrl';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { AudioChatServiceContext } from '@/components/AudioChatServiceProvider/context';
 
 export const Panel = () => {
   const {
@@ -36,12 +37,13 @@ export const Panel = () => {
     botAudioPlaying,
     isCallingRef
   } = useAudioChatState();
+  const {
+    serviceRef,
+    waveRef,
+  } = useContext(AudioChatServiceContext);
 
   const { handleConnect } = useVoiceBotService();
   const { currentBotSentence, currentUserSentence } = useCurrentSentence();
-
-
-  const { recStart, recStop } = useAudioRecorder();
 
   const { logContent } = useLogContent();
 
@@ -51,11 +53,15 @@ export const Panel = () => {
 
   const hangUpCall = () => {
     isCallingRef.current = true
-    recStart()
+    if (serviceRef.current) {
+      serviceRef.current.recStart()
+    }
   }
   const hangDownCall = () => {
     isCallingRef.current = false
-    recStop()
+    if (serviceRef.current) {
+      serviceRef.current.recStop()
+    }
   }
   return (
     <div className={'flex flex-col gap-4'}>
