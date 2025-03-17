@@ -2,6 +2,8 @@
   "extends": "@modern-js/tsconfig/base",
   "compilerOptions": {
     "declaration": false,
+    "moduleResolution": "node16",
+    "module": "Node16",
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {

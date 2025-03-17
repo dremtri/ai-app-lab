@@ -30,3 +30,7 @@ log/
 
 modern.config.local.*
 .output
+
+.yalc
+
+yalc.lock
